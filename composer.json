@@ -1,0 +1,26 @@
+{
+  "name": "dxcweb/lumen-tool",
+  "type": "library",
+  "description": "lumen-tool的工具类",
+  "keywords": [],
+  "support": {
+    "issues": "https://github.com/dxcweb"
+  },
+  "authors": [
+    {
+      "name": "dxcweb",
+      "email": "dxcweb@qq.com"
+    }
+  ],
+  "require": {
+    "dxcweb/aliyun-sdk": "^1.0.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "LumenTool\\": ""
+    },
+    "files": [
+      "Util.php"
+    ]
+  }
+}
