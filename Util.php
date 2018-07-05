@@ -27,15 +27,15 @@ function json_encode_cn($res)
 }
 
 //
-//function _getInput($is_filters = false)
-//{
-//    return \Tool\Input::getInput($is_filters);
-//}
-//
-//function _setData($data)
-//{
-//    \Tool\Input::setData($data);
-//}
+function _getInput()
+{
+    return \LumenTool\Input::getInput();
+}
+
+function _setData($data)
+{
+    \LumenTool\Input::setData($data);
+}
 
 function create_guid()
 {
