@@ -8,12 +8,10 @@
 
 namespace LumenTool\Aliyun;
 
-use Aliyun\Core\Config;
 use Aliyun\Core\Profile\DefaultProfile;
 use Aliyun\Core\DefaultAcsClient;
 use Aliyun\Api\Sms\Request\V20170525\SendSmsRequest;
 
-Config::load();
 
 class Sms
 {
