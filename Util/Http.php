@@ -1,5 +1,5 @@
 <?php
-namespace Tool\Util;
+namespace LumenTool\Util;
 
 use phpseclib\Crypt\RSA;
 
@@ -12,11 +12,11 @@ class Http
      */
     public static function notice($log_path = "", $operation_name = "", $msg = "", $content = "")
     {
-        $wxqy_notice = config("myapp.wxqy_notice");
+        $wxqy_notice = env('WXQY_NOTICE');
         if (empty($wxqy_notice)) {
             return false;
         }
-        $data['agent_id'] = config("myapp.error_notice_agent_id");
+        $data['agent_id'] = env('ERROR_NOTICE_AGENT_ID');
         if (empty($data['agent_id'])) {
             return false;
         }
@@ -33,8 +33,8 @@ class Http
         $content = str_replace('"', "``", "$content");
         $notice_content =
             date('Y-m-d H:i:s') . "\n" .
-            "项目：" . config('myapp.app_name') . "\n" .
-            "环境：" . config('myapp.env') . "\n" .
+            "项目：" . env('APP_NAME') . "\n" .
+            "环境：" . env('APP_ENV') . "\n" .
             "日志路径：" . $log_path . "\n" .
             "操作名称：" . $operation_name . "\n" .
             "错误：" . $msg . "\n" .

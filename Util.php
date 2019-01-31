@@ -187,9 +187,11 @@ function createRandNumber($length = 10)
     return $str;
 }
 
-function paramsCheck($arr)
+function paramsCheck($arr, $p = null)
 {
-    $p = _getInput();
+    if (empty($p)) {
+        $p = _getInput();
+    }
     $data = [];
     foreach ($arr as $value) {
         if (array_key_exists($value, $p)) {

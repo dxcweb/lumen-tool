@@ -6,7 +6,7 @@
  * Time: 17:03
  */
 
-namespace Tool\Util;
+namespace LumenTool\Util;
 
 
 class ArrayToXml

@@ -6,7 +6,7 @@
  * Time: 14:00
  */
 
-namespace Tool\Util;
+namespace LumenTool\Util;
 
 
 class Data
@@ -37,7 +37,14 @@ class Data
         if (!is_string($xml)) {
             return null;
         }
-        $array_data = json_decode(json_encode(simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA)), true);
+        libxml_disable_entity_loader(true);
+        try {
+            $data = simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA);
+            $array_data = json_decode(json_encode($data), true);
+        } catch (\Exception $e) {
+            return [];
+        }
+
         return $array_data;
     }
 

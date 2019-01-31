@@ -6,7 +6,7 @@
  * Time: 14:50
  */
 
-namespace Tool\Util;
+namespace LumenTool\Util;
 
 
 class GetBrowserInfo
