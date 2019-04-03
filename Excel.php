@@ -29,6 +29,35 @@ class Excel
         Excel::export('订单', $data, $columns);
     }
 
+    public static function import($startRow = 1, $pFilename = null)
+    {
+        if (empty($pFilename)) {
+            foreach ($_FILES as $value) {
+                $pFilename = $value['tmp_name'];
+                break;
+            }
+        }
+        if (empty($pFilename)) {
+            return _output('pFilename参数错误！', false);
+        }
+        try {
+            $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($pFilename);
+        } catch (\Exception $e) {
+            return _output('文件格式不正确，请打手动打开后点击"文件->另存为"存储一个新的Excel后上传！', false);
+        }
+
+        $sheet = $spreadsheet->getActiveSheet();
+        $res = array();
+        foreach ($sheet->getRowIterator($startRow) as $row) {
+            $tmp = array();
+            foreach ($row->getCellIterator() as $cell) {
+                $tmp[] = $cell->getFormattedValue();
+            }
+            $res[$row->getRowIndex()] = $tmp;
+        }
+        return _output($res);
+    }
+
     public static function export($file_name, $excel_data, $columns, $excel_type = 'xls')
     {
 
