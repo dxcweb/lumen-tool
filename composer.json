@@ -14,7 +14,8 @@
   ],
   "require": {
     "phpseclib/phpseclib": "^2.0",
-    "dxcweb/aliyun-sdk": "^1.0.1"
+    "dxcweb/aliyun-sdk": "^1.0.1",
+    "phpoffice/phpspreadsheet": "^1.6"
   },
   "autoload": {
     "psr-4": {
