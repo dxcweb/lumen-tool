@@ -8,6 +8,7 @@
 
 namespace LumenTool;
 
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
@@ -28,8 +29,9 @@ class Excel
         Excel::export('订单', $data, $columns);
     }
 
-    public static function import($startRow = 1, $pFilename = null)
+    public static function import($startRow = 1, $pFilename = null, $InputEncoding)
     {
+        Cell::setValueBinder(new CustomValueBinder());
         if (empty($pFilename)) {
             foreach ($_FILES as $value) {
                 $pFilename = $value['tmp_name'];
@@ -40,12 +42,21 @@ class Excel
             return _output('pFilename参数错误！', false);
         }
         try {
-            $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($pFilename);
+            $inputFileType = IOFactory::identify($pFilename);
+            $excelReader = IOFactory::createReader($inputFileType);
+            if (!empty($InputEncoding)) {
+                $excelReader->setInputEncoding($InputEncoding);
+//                $excelReader->setInputEncoding('GBK');
+            }
+            $spreadsheet = $excelReader->load($pFilename);
+
         } catch (\Exception $e) {
             return _output('文件格式不正确，请打手动打开后点击"文件->另存为"存储一个新的Excel后上传！', false);
         }
 
+
         $sheet = $spreadsheet->getActiveSheet();
+//        $sheetdata = $sheet->toArray(); // 没有尝试到
         $res = array();
         foreach ($sheet->getRowIterator($startRow) as $row) {
             $tmp = array();
